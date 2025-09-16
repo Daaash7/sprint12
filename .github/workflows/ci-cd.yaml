@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - 'v*'
+      - 'v*'   
   pull_request:
 
 jobs:
@@ -42,6 +42,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Debug Docker tags
+        run: |
+          echo "Docker tags:"
+          echo "${{ secrets.DOCKER_USERNAME }}/parcel-tracker:latest"
+          echo "${{ secrets.DOCKER_USERNAME }}/parcel-tracker:${{ github.ref_name }}"
 
       - name: Build and Push Docker image
         uses: docker/build-push-action@v6
